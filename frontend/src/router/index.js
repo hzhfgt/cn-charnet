@@ -54,22 +54,58 @@ export const constantRoutes = [
 
 export const asyncRoutes = [
   {
-    path: '/book',
+    path: '/singleChar',
     component: Layout,
-    redirect: '/book/create',
-    meta: { title: '图书管理', icon: 'documentation', roles: ['admin'] },
+    redirect: '/singleChar/searchInfo',
+    meta: { title: '单字查询', noCache: true },
     children: [
       {
-        path: '/book/create',
-        component: () => import('@/views/book/create'),
-        name: '上传图书',
-        meta: { title: '上传图书', icon: 'edit', roles: ['admin'] }
-      },
+        path: '/singleChar/searchInfo',
+        component: () => import('@/views/singleChar/index'),
+        name: '单字查询',
+        meta: { title: '单字查询', icon: 'edit', roles: ['admin'] }
+      }
+    ]
+  },
+  {
+    path: '/shapeRelations',
+    component: Layout,
+    redirect: '/shapeRelations/searchShape',
+    meta: { title: '字形关系', noCache: true },
+    children: [
       {
-        path: '/book/search',
-        component: () => import('@/views/book/search'),
-        name: '搜索图书',
-        meta: { title: '搜索图书', icon: 'edit', roles: ['admin'] }
+        path: '/shapeRelations/searchShape',
+        component: () => import('@/views/shapeRelations/index'),
+        name: '字形关系',
+        meta: { title: '字形关系', icon: 'edit', roles: ['admin'] }
+      }
+    ]
+  },
+  {
+    path: '/meaningRelations',
+    component: Layout,
+    redirect: '/meaningRelations/searchShape',
+    meta: { title: '字义关系', noCache: true },
+    children: [
+      {
+        path: '/meaningRelations/searchShape',
+        component: () => import('@/views/meaningRelations/index'),
+        name: '字义关系',
+        meta: { title: '字义关系', icon: 'edit', roles: ['admin'] }
+      }
+    ]
+  },
+  {
+    path: '/pronounceRelations',
+    component: Layout,
+    redirect: '/pronounceRelations/searchShape',
+    meta: { title: '字音关系', noCache: true },
+    children: [
+      {
+        path: '/pronounceRelations/searchShape',
+        component: () => import('@/views/pronounceRelations/index'),
+        name: '字音关系',
+        meta: { title: '字音关系', icon: 'edit', roles: ['admin'] }
       }
     ]
   },
