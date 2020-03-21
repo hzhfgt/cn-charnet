@@ -1,66 +1,8 @@
 <template>
   <div>
-    <el-container>
-      <el-header height="120px">
-        <div class="search-header">
-          <el-row gutter="0">
-            <el-col :span="8">
-              <div class="grid-content bg-purple">
-                请输入要查询的汉字
-              </div>
-            </el-col>
-            <el-col :span="6">
-              <div class="grid-content bg-purple-light">
-                <el-input v-model="input" placeholder="请输入要查询的单字"></el-input>
-              </div>
-            </el-col>
-            <el-col :span="4">
-              <div class="grid-content bg-purple">
-                <el-button type="primary">查询</el-button>
-              </div>
-            </el-col>
-            <el-col :span="6">
-              <div class="grid-content bg-purple" style="font-size: 50px">
-                {{charName}}
-              </div>
-            </el-col>
-          </el-row>
-        </div>
-      </el-header>
+    <el-container direction="vertical">
+      <searchHead></searchHead>
       <el-main>
-<!--        <el-row class="tac">-->
-<!--          <el-col :span="4">-->
-<!--            <el-menu-->
-<!--              default-active="2"-->
-<!--              class="el-menu-vertical-demo"-->
-<!--              @open="handleOpen"-->
-<!--              @close="handleClose">-->
-<!--              <el-menu-item index="1">-->
-<!--                <i class="el-icon-menu"></i>-->
-<!--                <span slot="title">基本信息</span>-->
-<!--              </el-menu-item>-->
-<!--              <el-menu-item index="2">-->
-<!--                <i class="el-icon-document"></i>-->
-<!--                <span slot="title">字义列表</span>-->
-<!--              </el-menu-item>-->
-<!--            </el-menu>-->
-<!--          </el-col>-->
-<!--          <el-col :span="20">-->
-<!--            <el-table-->
-<!--              :data="tableData"-->
-<!--              style="width: 100%">-->
-<!--              <el-table-column-->
-<!--                prop="number"-->
-<!--                label="序号"-->
-<!--                width= "180">-->
-<!--              </el-table-column>-->
-<!--              <el-table-column-->
-<!--                prop="meaning"-->
-<!--                label="字义">-->
-<!--              </el-table-column>-->
-<!--            </el-table>-->
-<!--          </el-col>-->
-<!--        </el-row>-->
         <el-tabs tab-position="left" style="margin-left: 30px">
           <el-tab-pane label="基本信息">
             <el-table
@@ -103,25 +45,35 @@
 </template>
 
 <script>
+import searchHead from '@/views/components/searchHead.vue'
 export default {
   name: 'Index',
+  components: {
+    searchHead
+  },
   data() {
     return {
       BasicInfoData: [{
         propName: '字形',
         propValue: '照'
-      },{
+      }, {
         propName: '拼音',
-        propValue: 'zhao'
+        propValue: 'zhào'
       }, {
         propName: 'Unicode编码',
-        propValue: '1234'
+        propValue: 'U+7167'
       }, {
         propName: '结构',
         propValue: '上下结构'
       }, {
         propName: '构字方式',
         propValue: '形声'
+      }, {
+        propName: '部首',
+        propValue: '灬'
+      }, {
+        propName: '笔画',
+        propValue: '13'
       }],
       MeaningsData: [{
         number: '1',
@@ -139,51 +91,43 @@ export default {
         number: '4',
         meaning: '画像或相片',
         examples: '小～。写～。'
-      }],
-      input: '',
-      charName: '照'
+      }, {
+        number: '5',
+        meaning: '看顾',
+        examples: '～管。～顾。'
+      }, {
+        number: '6',
+        meaning: '按着，依着',
+        examples: '依～。遵～。～搬。～本宣科。'
+      }, {
+        number: '7',
+        meaning: '凭证',
+        examples: '护～。牌～。执～。'
+      }, {
+        number: '8',
+        meaning: '知晓',
+        examples: '心～不宣。肝胆相～。'
+      }, {
+        number: '9',
+        meaning: '通知，通告',
+        examples: '知～。～会。'
+      }, {
+        number: '10',
+        meaning: '对着，向着',
+        examples: '～壁。～敌人开枪。'
+      }, {
+        number: '11',
+        meaning: '查对',
+        examples: '对～。查～。'
+      }]
     }
   }
 }
 </script>
 
 <style scoped>
-  .search-header {
-    margin: 35px auto;
-  }
-  .el-header {
-    /*background-color: #B3C0D1;*/
-    background-color: #e9e9ea;
-    color: #333;
-    text-align: center;
-    line-height: 60px;
-  }
   .el-main {
     color: #333;
     text-align: center;
-  }
-  .el-row {
-    margin-bottom: 20px;
-  }
-  .el-col {
-    border-radius: 4px;
-  }
-  .bg-purple-dark {
-    background: #99a9bf;
-  }
-  .bg-purple {
-    background: #e9e9ea;
-  }
-  .bg-purple-light {
-    background: #e9e9ea;
-  }
-  .grid-content {
-    border-radius: 4px;
-    min-height: 36px;
-    font-size: 20px;
-  }
-  .row-bg {
-    padding: 10px 0;
-    background-color: #f9fafc;
   }
 </style>

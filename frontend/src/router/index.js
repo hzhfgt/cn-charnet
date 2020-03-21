@@ -70,28 +70,40 @@ export const asyncRoutes = [
   {
     path: '/shapeRelations',
     component: Layout,
-    redirect: '/shapeRelations/searchShape',
+    redirect: '/shapeRelations/whole-part',
     meta: { title: '字形关系', noCache: true },
     children: [
       {
-        path: '/shapeRelations/searchShape',
-        component: () => import('@/views/shapeRelations/index'),
-        name: '字形关系',
-        meta: { title: '字形关系', icon: 'edit', roles: ['admin'] }
+        path: '/shapeRelations/whole-part',
+        component: () => import('@/views/shapeRelations/partRelations'),
+        name: '整体-部分关系',
+        meta: { title: '整体-部分关系', icon: 'edit', roles: ['admin'] }
+      },
+      {
+        path: '/shapeRelations/similar',
+        component: () => import('@/views/shapeRelations/similarRelations'),
+        name: '字形相似关系',
+        meta: { title: '字形相似关系', icon: 'edit', roles: ['admin'] }
       }
     ]
   },
   {
     path: '/meaningRelations',
     component: Layout,
-    redirect: '/meaningRelations/searchShape',
+    redirect: '/meaningRelations/nearSense',
     meta: { title: '字义关系', noCache: true },
     children: [
       {
-        path: '/meaningRelations/searchShape',
-        component: () => import('@/views/meaningRelations/index'),
-        name: '字义关系',
-        meta: { title: '字义关系', icon: 'edit', roles: ['admin'] }
+        path: '/meaningRelations/nearSense',
+        component: () => import('@/views/meaningRelations/nearSense'),
+        name: '近义关系',
+        meta: { title: '近义关系', icon: 'edit', roles: ['admin'] }
+      },
+      {
+        path: '/meaningRelations/variant',
+        component: () => import('@/views/meaningRelations/variant'),
+        name: '异体字',
+        meta: { title: '异体字', icon: 'edit', roles: ['admin'] }
       }
     ]
   },
@@ -105,7 +117,27 @@ export const asyncRoutes = [
         path: '/pronounceRelations/searchShape',
         component: () => import('@/views/pronounceRelations/index'),
         name: '字音关系',
-        meta: { title: '字音关系', icon: 'edit', roles: ['admin'] }
+        meta: { title: '字音关系', roles: ['admin'] }
+      }
+    ]
+  },
+  {
+    path: '/otherRelations',
+    component: Layout,
+    redirect: '/otherRelations/interchangeableRelations',
+    meta: { title: '其他关系', noCache: true },
+    children: [
+      {
+        path: '/otherRelations/interchangeableRelations',
+        component: () => import('@/views/otherRelations/interchangeableRelations'),
+        name: '通假字',
+        meta: { title: '通假字', icon: 'edit', roles: ['admin'] }
+      },
+      {
+        path: '/otherRelations/otherRelations',
+        component: () => import('@/views/otherRelations/otherRelations'),
+        name: '其他关系',
+        meta: { title: '其他关系', icon: 'edit', roles: ['admin'] }
       }
     ]
   },
