@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-container direction="vertical">
-      <searchHead></searchHead>
+      <searchHead @clickSearchButton="clickSearchButton"></searchHead>
       <el-main>
         <el-tabs value="first" type="border-card" @tab-click="handleClick">
           <el-tab-pane label="结构相似" name="first">
@@ -78,6 +78,7 @@
 
 <script>
 import searchHead from '@/views/components/searchHead.vue'
+import { getSimilarStructure, getSimilarComponent, getSimilarChoke } from '@/api/search'
 
 export default {
   name: 'Index',
@@ -86,86 +87,34 @@ export default {
   },
   data() {
     return {
-      tableData1: [{
-        charName: '熬',
-        structure: '上下结构',
-        info: 'some info about this relation'
-      }, {
-        charName: '愁',
-        structure: '上下结构',
-        info: 'some info about this relation'
-      }, {
-        charName: '瞥',
-        structure: '上下结构',
-        info: 'some info about this relation'
-      }, {
-        charName: '望',
-        structure: '上下结构',
-        info: 'some info about this relation'
-      }, {
-        charName: '塑',
-        structure: '上下结构',
-        info: 'some info about this relation'
-      }, {
-        charName: '煞',
-        structure: '上下结构',
-        info: 'some info about this relation'
-      }],
-      tableData2: [{
-        charName: '点',
-        components: '灬',
-        info: 'some info about this relation'
-      }, {
-        charName: '然',
-        components: '灬',
-        info: 'some info about this relation'
-      }, {
-        charName: '绍',
-        components: '召',
-        info: 'some info about this relation'
-      }, {
-        charName: '迢',
-        components: '召',
-        info: 'some info about this relation'
-      }, {
-        charName: '旺',
-        components: '日',
-        info: 'some info about this relation'
-      }, {
-        charName: '旭',
-        components: '日',
-        info: 'some info about this relation'
-      }],
-      tableData3: [{
-        charName: '蓝',
-        strokes: '13',
-        info: 'some info about this relation'
-      }, {
-        charName: '跳',
-        strokes: '13',
-        info: 'some info about this relation'
-      }, {
-        charName: '腾',
-        strokes: '13',
-        info: 'some info about this relation'
-      }, {
-        charName: '蒙',
-        strokes: '13',
-        info: 'some info about this relation'
-      }, {
-        charName: '路',
-        strokes: '13',
-        info: 'some info about this relation'
-      }, {
-        charName: '塑',
-        strokes: '13',
-        info: 'some info about this relation'
-      }]
+      tableData1: [],
+      tableData2: [],
+      tableData3: []
     }
   },
   methods: {
     handleClick(tab, event) {
-      console.log(tab, event);
+      console.log(tab, event)
+    },
+    clickSearchButton(theCharacter) {
+      getSimilarStructure(theCharacter).then(response => {
+        // console.log(response.data[0])
+        console.log(response.data)
+        const result = response.data
+        this.tableData1 = result
+      })
+      getSimilarComponent(theCharacter).then(response => {
+        // console.log(response.data[0])
+        console.log(response.data)
+        const result = response.data
+        this.tableData2 = result
+      })
+      getSimilarChoke(theCharacter).then(response => {
+        // console.log(response.data[0])
+        console.log(response.data)
+        const result = response.data
+        this.tableData3 = result
+      })
     }
   }
 }

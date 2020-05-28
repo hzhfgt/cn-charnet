@@ -15,6 +15,7 @@
         <el-col :span="4">
           <div class="grid-content bg-purple">
             <el-button type="primary" @click="clickSearchButton">查询</el-button>
+            <el-button type="danger" @click="clickAddButton">添加</el-button>
           </div>
         </el-col>
         <el-col :span="6">
@@ -29,7 +30,7 @@
 
 <script>
 export default {
-  name: 'SearchHead',
+  name: 'SearchHeadWithAdd',
   data() {
     return {
       input: ''
@@ -38,6 +39,9 @@ export default {
   methods: {
     clickSearchButton() {
       this.$emit('clickSearchButton', this.input)
+    },
+    clickAddButton() {
+      this.$emit('clickAddButton', this.input)
     }
   }
 }

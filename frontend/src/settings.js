@@ -1,5 +1,5 @@
 module.exports = {
-  title: 'Vue Element Admin',
+  title: '中文WordNet',
 
   /**
    * @type {boolean} true | false

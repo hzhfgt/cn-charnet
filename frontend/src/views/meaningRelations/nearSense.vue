@@ -1,9 +1,9 @@
 <template>
   <div>
     <el-container direction="vertical">
-      <searchHead></searchHead>
+      <searchHead @clickSearchButton="clickSearchButton" ref="searchHead"></searchHead>
       <el-main>
-        <el-tabs value="first" type="border-card" @tab-click="handleClick">
+        <el-tabs v-model="tabValue" type="border-card" @tab-click="handleClick">
           <el-tab-pane label="字义反查" name="first">
             <el-table
               :data="tableData1"
@@ -58,6 +58,7 @@
 
 <script>
 import searchHead from '@/views/components/searchHead.vue'
+import { getRelatedMeaning, getRelatedMeaning_SW } from '@/api/search'
 
 export default {
   name: 'Index',
@@ -66,34 +67,57 @@ export default {
   },
   data() {
     return {
-      tableData1: [{
-        charName: '摹',
-        meaning: '仿效，照着样子做'
-      }, {
-        charName: '遵',
-        meaning: '沿着，依照，按照'
-      }, {
-        charName: '映',
-        meaning: '反照，照射而显示'
-      }, {
-        charName: '循',
-        meaning: '遵守，依照沿袭'
-      }],
-      tableData2: [{
-        charName: '摹',
-        meaning: '仿效，照着样子做'
-      }, {
-        charName: '遵',
-        meaning: '沿着，依照，按照'
-      }, {
-        charName: '映',
-        meaning: '反照，照射而显示'
-      }]
+      tabValue: 'first',
+      tableData1: [],
+      tableData2: []
     }
   },
   methods: {
+    handleClick(tab, event) {
+      console.log(tab, event)
+    },
     handleSearch(index, row) {
-      console.log(index, row);
+      console.log(index, row)
+      if (this.tabValue === 'first') {
+        console.log(this.tableData1[index].charName)
+        this.$refs.searchHead.input = this.tableData1[index].charName
+        getRelatedMeaning(this.tableData1[index].charName).then(response => {
+          console.log(response.data)
+          const result = response.data
+          this.tableData1 = result
+        })
+        getRelatedMeaning_SW(this.tableData1[index].charName).then(response => {
+          console.log(response.data)
+          const result = response.data
+          this.tableData2 = result
+        })
+      } else if (this.tabValue === 'second') {
+        console.log(this.tableData2[index].charName)
+        this.$refs.searchHead.input = this.tableData2[index].charName
+        getRelatedMeaning(this.tableData2[index].charName).then(response => {
+          console.log(response.data)
+          const result = response.data
+          this.tableData1 = result
+        })
+        getRelatedMeaning_SW(this.tableData2[index].charName).then(response => {
+          console.log(response.data)
+          const result = response.data
+          this.tableData2 = result
+        })
+      }
+
+    },
+    clickSearchButton(theCharacter) {
+      getRelatedMeaning(theCharacter).then(response => {
+        console.log(response.data)
+        const result = response.data
+        this.tableData1 = result
+      })
+      getRelatedMeaning_SW(theCharacter).then(response => {
+        console.log(response.data)
+        const result = response.data
+        this.tableData2 = result
+      })
     }
   }
 }

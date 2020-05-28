@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-container direction="vertical">
-      <searchHead></searchHead>
+      <searchHead @clickSearchButton="clickSearchButton"></searchHead>
       <el-main>
         <el-tabs tab-position="left" style="margin-left: 30px">
           <el-tab-pane label="基本信息">
@@ -33,7 +33,7 @@
                 label="字义">
               </el-table-column>
               <el-table-column
-                prop="examples"
+                prop="example"
                 label="举例">
               </el-table-column>
             </el-table>
@@ -46,6 +46,8 @@
 
 <script>
 import searchHead from '@/views/components/searchHead.vue'
+import { getSingleCharInfo, getSingleCharMeaning } from '@/api/search'
+
 export default {
   name: 'Index',
   components: {
@@ -53,73 +55,52 @@ export default {
   },
   data() {
     return {
-      BasicInfoData: [{
-        propName: '字形',
-        propValue: '照'
-      }, {
-        propName: '拼音',
-        propValue: 'zhào'
-      }, {
-        propName: 'Unicode编码',
-        propValue: 'U+7167'
-      }, {
-        propName: '结构',
-        propValue: '上下结构'
-      }, {
-        propName: '构字方式',
-        propValue: '形声'
-      }, {
-        propName: '部首',
-        propValue: '灬'
-      }, {
-        propName: '笔画',
-        propValue: '13'
-      }],
-      MeaningsData: [{
-        number: '1',
-        meaning: '光线射在物体上',
-        examples: '日～。～耀。～射。'
-      }, {
-        number: '2',
-        meaning: '对着镜子或其他反光的东西看自己或其他人物的影像',
-        examples: '～镜子。'
-      }, {
-        number: '3',
-        meaning: '摄影',
-        examples: '～相。拍～。'
-      }, {
-        number: '4',
-        meaning: '画像或相片',
-        examples: '小～。写～。'
-      }, {
-        number: '5',
-        meaning: '看顾',
-        examples: '～管。～顾。'
-      }, {
-        number: '6',
-        meaning: '按着，依着',
-        examples: '依～。遵～。～搬。～本宣科。'
-      }, {
-        number: '7',
-        meaning: '凭证',
-        examples: '护～。牌～。执～。'
-      }, {
-        number: '8',
-        meaning: '知晓',
-        examples: '心～不宣。肝胆相～。'
-      }, {
-        number: '9',
-        meaning: '通知，通告',
-        examples: '知～。～会。'
-      }, {
-        number: '10',
-        meaning: '对着，向着',
-        examples: '～壁。～敌人开枪。'
-      }, {
-        number: '11',
-        meaning: '查对',
-        examples: '对～。查～。'
-      }]
+      BasicInfoData: [],
+      MeaningsData: []
+    }
+  },
+  methods: {
+    clickSearchButton(theCharacter) {
+      getSingleCharInfo(theCharacter).then(response => {
+        // console.log(response.data[0])
+        console.log(response.data[0].character)
+        const result = response.data[0]
+        this.BasicInfoData = [{
+          propName: '字形',
+          propValue: result.character
+        }, {
+          propName: '拼音',
+          propValue: result.pronounce
+        }, {
+          propName: 'Unicode编码',
+          propValue: result.unicode
+        }, {
+          propName: '结构',
+          propValue: result.structure
+        }, {
+          propName: '构字方式',
+          propValue: result.create_method
+        }, {
+          propName: '部首',
+          propValue: result.radical
+        }, {
+          propName: '笔画',
+          propValue: result.stroke_number
+        }, {
+          propName: '笔顺',
+          propValue: result.stroke_order
+        }, {
+          propName: '字频',
+          propValue: result.frequency
+        }]
+      })
+
+      getSingleCharMeaning(theCharacter).then(response => {
+        // console.log(response.data[0])
+        console.log(response.data[1])
+        const result = response.data[1]
+        this.MeaningsData = result
+      })
     }
   }
 }

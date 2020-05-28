@@ -2,6 +2,9 @@ const express = require('express')
 const boom = require('boom')
 const userRouter = require('./user')
 const veaRouter = require('./vue-element-admin')
+const searchRouter = require('./search')
+const addRouter = require('./add')
+
 const {
     CODE_ERROR
 } = require('../utils/constant')
@@ -10,13 +13,17 @@ const {
 const router = express.Router()
 
 router.get('/', function(req, res) {
-    res.send('欢迎学习小慕读书管理后台')
+    res.send('欢迎')
 })
 
 
 router.use('/user', userRouter)
 
 router.use('/vue-element-admin', veaRouter)
+
+router.use('/search', searchRouter)
+
+router.use('/add', addRouter)
 
 
 router.use((req, res, next) => {

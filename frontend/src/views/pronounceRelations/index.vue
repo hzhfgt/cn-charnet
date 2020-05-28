@@ -16,12 +16,12 @@
             </el-col>
             <el-col :span="4">
               <div class="grid-content bg-purple">
-                <el-button type="primary">查询</el-button>
+                <el-button type="primary" @click="clickSearchButton">查询</el-button>
               </div>
             </el-col>
             <el-col :span="6">
               <div class="grid-content bg-purple" style="font-size: 50px">
-                照
+                {{input}}
               </div>
             </el-col>
           </el-row>
@@ -33,8 +33,8 @@
               <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选(完全相同)</el-checkbox>
             </el-col>
             <el-col :span="10">
-              <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
-                <el-checkbox v-for="city in cities" :label="city" :key="city">{{city}}</el-checkbox>
+              <el-checkbox-group v-model="checkedOptions" @change="handleCheckedOptionsChange">
+                <el-checkbox v-for="op in options" :label="op" :key="op">{{op}}</el-checkbox>
               </el-checkbox-group>
             </el-col>
           </el-row>
@@ -68,50 +68,45 @@
 </template>
 
 <script>
-const cityOptions = ['声母相同', '韵母相同', '声调相同', '前后鼻音', '读音相似', '其他']
+import { getPronounce } from '@/api/search'
+
+const Coptions = ['声母相同', '韵母相同', '声调相同', '前后鼻音', '读音相似', '其他']
 export default {
   name: 'Index',
   components: {
   },
   data() {
     return {
+      input: '',
       checkAll: false,
-      checkedCities: ['上海', '北京'],
-      cities: cityOptions,
+      checkedOptions: ['声母相同', '韵母相同'],
+      options: Coptions,
       isIndeterminate: true,
-      tableData: [{
-        charName: '召',
-        pronounce: 'zhào,shào'
-      }, {
-        charName: '着',
-        pronounce: 'huó,zháo,zhāo,zhe'
-      }, {
-        charName: '爪',
-        pronounce: 'zhǎo,zhuǎ'
-      }, {
-        charName: '着',
-        pronounce: 'huó,zháo,zhāo,zhe'
-      }, {
-        charName: '啁',
-        pronounce: 'zhōu,zhāo,tiào'
-      }, {
-        charName: '着',
-        pronounce: 'huó,zháo,zhāo,zhe'
-      }]
+      tableData: []
     }
   },
   methods: {
     handleCheckAllChange(val) {
-      this.checkedCities = val ? cityOptions : []
+      this.checkedOptions = val ? Coptions : []
       this.isIndeterminate = false
     },
-    handleCheckedCitiesChange(value) {
+    handleCheckedOptionsChange(value) {
       const checkedCount = value.length
-      this.checkAll = checkedCount === this.cities.length
-      this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length
+      this.checkAll = checkedCount === this.options.length
+      this.isIndeterminate = checkedCount > 0 && checkedCount < this.options.length
+    },
+    clickSearchButton() {
+      getPronounce(this.input, this.checkedOptions).then(response => {
+        console.log(response.data)
+        const result = response.data
+        this.tableData = result
+      })
     },
     handleSearch(index, row) {
       console.log(index, row)
+      console.log(this.tableData[index].charName)
+      this.input = this.tableData[index].charName
+      this.clickSearchButton()
     }
   }
 }

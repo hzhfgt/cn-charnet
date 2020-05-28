@@ -11,11 +11,11 @@ function connect() {
     })
 }
 
-function querySql(sql){
+function querySql(sql,params){
     const conn = connect()
     return new Promise((resolve, reject) => {
         try{
-            conn.query(sql,(err, results) => {
+            conn.query(sql,params,(err, results) => {
                 if(err){
                     reject(err)
                 } else {

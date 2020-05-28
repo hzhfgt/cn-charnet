@@ -63,7 +63,7 @@ export const asyncRoutes = [
         path: '/singleChar/searchInfo',
         component: () => import('@/views/singleChar/index'),
         name: '单字查询',
-        meta: { title: '单字查询', icon: 'edit', roles: ['admin'] }
+        meta: { title: '单字查询', icon: 'edit', roles: ['admin', 'editor'] }
       }
     ]
   },
@@ -77,13 +77,13 @@ export const asyncRoutes = [
         path: '/shapeRelations/whole-part',
         component: () => import('@/views/shapeRelations/partRelations'),
         name: '整体-部分关系',
-        meta: { title: '整体-部分关系', icon: 'edit', roles: ['admin'] }
+        meta: { title: '整体-部分关系', icon: 'edit', roles: ['admin', 'editor'] }
       },
       {
         path: '/shapeRelations/similar',
         component: () => import('@/views/shapeRelations/similarRelations'),
         name: '字形相似关系',
-        meta: { title: '字形相似关系', icon: 'edit', roles: ['admin'] }
+        meta: { title: '字形相似关系', icon: 'edit', roles: ['admin', 'editor'] }
       }
     ]
   },
@@ -97,13 +97,13 @@ export const asyncRoutes = [
         path: '/meaningRelations/nearSense',
         component: () => import('@/views/meaningRelations/nearSense'),
         name: '近义关系',
-        meta: { title: '近义关系', icon: 'edit', roles: ['admin'] }
+        meta: { title: '近义关系', icon: 'edit', roles: ['admin', 'editor'] }
       },
       {
         path: '/meaningRelations/variant',
         component: () => import('@/views/meaningRelations/variant'),
         name: '异体字',
-        meta: { title: '异体字', icon: 'edit', roles: ['admin'] }
+        meta: { title: '异体字', icon: 'edit', roles: ['admin', 'editor'] }
       }
     ]
   },
@@ -117,7 +117,7 @@ export const asyncRoutes = [
         path: '/pronounceRelations/searchShape',
         component: () => import('@/views/pronounceRelations/index'),
         name: '字音关系',
-        meta: { title: '字音关系', roles: ['admin'] }
+        meta: { title: '字音关系', roles: ['admin', 'editor'] }
       }
     ]
   },
@@ -131,13 +131,26 @@ export const asyncRoutes = [
         path: '/otherRelations/interchangeableRelations',
         component: () => import('@/views/otherRelations/interchangeableRelations'),
         name: '通假字',
-        meta: { title: '通假字', icon: 'edit', roles: ['admin'] }
+        meta: { title: '通假字', icon: 'edit', roles: ['admin', 'editor'] }
       },
       {
         path: '/otherRelations/otherRelations',
         component: () => import('@/views/otherRelations/otherRelations'),
         name: '其他关系',
-        meta: { title: '其他关系', icon: 'edit', roles: ['admin'] }
+        meta: { title: '其他关系', icon: 'edit', roles: ['admin', 'editor'] }
+      }
+    ]
+  },
+  {
+    path: '/checkSubmit',
+    component: Layout,
+    redirect: '/checkSubmit/checkPage',
+    children: [
+      {
+        path: '/checkSubmit/checkPage',
+        component: () => import('@/views/checkSubmit/index'),
+        name: '用户提交审核',
+        meta: { title: '用户提交审核', icon: 'edit', roles: ['admin'] }
       }
     ]
   },
